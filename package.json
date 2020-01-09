@@ -1,0 +1,22 @@
+{
+  "name": "mern_trading_platform",
+  "version": "1.0.0",
+  "description": "Trading platform built with the MERN stack",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "server": "nodemon server.js"
+  },
+  "author": "Houssam Benhadine",
+  "license": "MIT",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "concurrently": "^5.0.2",
+    "config": "^3.2.4",
+    "express": "^4.17.1",
+    "mongoose": "^5.8.6"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.2"
+  }
+}
