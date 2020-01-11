@@ -1,0 +1,4 @@
+{
+    "mongoURI": "mongodb+srv://houssambenhadine21:19971412@trading-db-sc22n.mongodb.net/test?retryWrites=true&w=majority",
+    "jwtSecret": "tp_myJwtSecret"
+}
