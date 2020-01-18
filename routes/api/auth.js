@@ -13,7 +13,7 @@ const User = require('../../models/User');
 // @desc  Auth user
 // @access public
 
-router.get('/', (req, res) => {
+router.post('/', (req, res) => {
     const {email, password} = req.body;
 
     // simple validation
@@ -29,7 +29,7 @@ router.get('/', (req, res) => {
         // password comparaison
         bcrypt.compare(password, user.password)
         .then(matched => {
-            if(!matched) return es.status(400).json({ message: 'Credentials incorrect'});
+            if(!matched) return res.status(400).json({ message: 'Credentials incorrect'});
 
             jwt.sign(
                 {id: user.id},
