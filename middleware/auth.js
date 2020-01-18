@@ -5,7 +5,8 @@ function auth(req, res, next) {
     const token = req.header('x-auth-token');
 
     // Check if unauthorized
-    if(!token)  res.status(401).json({ message: 'No token, permission denied'})
+    if (!token)
+        return res.status(401).json({ message: 'No token, permission denied' })
 
     try {
 
@@ -15,10 +16,10 @@ function auth(req, res, next) {
         req.user = decoded;
         next();
 
-    } catch(e) {
-        res.status(400).json({ message: 'Invalid token '})
+    } catch (e) {
+        res.status(400).json({ message: 'Invalid token ' })
     }
-    
+
 }
 
 module.exports = auth;
