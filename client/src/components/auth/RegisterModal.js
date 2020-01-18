@@ -20,7 +20,8 @@ import { clearErrors } from '../../actions/errorActions';
 class RegisterModal extends Component {
     state = {
         modal: false,
-        name: '',
+        firstname: '',
+        lastname: '',
         email: '',
         password: '',
         msg: null
@@ -28,10 +29,33 @@ class RegisterModal extends Component {
 
     static propTypes = {
         isAuthenticated: PropTypes.bool,
-        error: PropTypes.object.isRequired
+        error: PropTypes.object.isRequired,
+        register: PropTypes.func.isRequired,
+        clearErrors: PropTypes.func.isRequired
+    };
+
+    componentDidUpdate(prevProps) {
+        const { error, isAuthenticated } = this.props;
+        if (error !== prevProps.error) {
+            // register error
+            if (error.id === 'REGISTER_FAIL') {
+                this.setState({ msg: error.msg.message });
+            } else {
+                this.setState({ msg: null });
+            }
+        }
+
+        // if modal open
+        if (this.state.modal) {
+            // once authenticated close modal
+            if (isAuthenticated) {
+                this.toggle();
+            }
+        }
     }
 
     toggle = () => {
+        this.props.clearErrors();
         this.setState({
             modal: !this.state.modal
         });
@@ -44,15 +68,19 @@ class RegisterModal extends Component {
     onSubmit = e => {
         e.preventDefault();
 
-        // const { name, email, password } = this.state;
+        const { firstname, lastname, email, password } = this.state;
 
-        // const newUser = {
-        //     name,
-        //     email,
-        //     password
-        // };
+        const newUser = {
+            firstname,
+            lastname,
+            email,
+            password
+        };
 
-        // this.props.register(newUser);
+        this.props.register(newUser);
+
+
+
     };
 
     render() {
@@ -63,14 +91,24 @@ class RegisterModal extends Component {
                 <Modal isOpen={this.state.modal} toggle={this.toggle}>
                     <ModalHeader toggle={this.toggle}>Register</ModalHeader>
                     <ModalBody>
+                        {this.state.msg ? (<Alert color='danger'>{this.state.msg}</Alert>) : null}
                         <Form onSubmit={this.onSubmit}>
                             <FormGroup>
-                                <Label for='name'>Name</Label>
+                                <Label for='firstname'>First name</Label>
                                 <Input
                                     type='text'
-                                    name='name'
-                                    id='name'
-                                    placeholder='Name'
+                                    name='firstname'
+                                    id='firstname'
+                                    placeholder='First name'
+                                    className='mb-3'
+                                    onChange={this.onChange}
+                                />
+                                <Label for='lastname'>Last name</Label>
+                                <Input
+                                    type='text'
+                                    name='lastname'
+                                    id='lastname'
+                                    placeholder='Last name'
                                     className='mb-3'
                                     onChange={this.onChange}
                                 />
@@ -114,5 +152,5 @@ const mapStateToProps = state => ({
 
 export default connect(
     mapStateToProps,
-    {  }
+    { register, clearErrors }
 )(RegisterModal);
