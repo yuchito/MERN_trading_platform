@@ -6,10 +6,12 @@ import {
   NavbarBrand,
   Nav,
   NavItem,
-  NavLink,
-  Container,
-  Button
+  Container
 } from 'reactstrap';
+
+import RegisterModal from "./auth/RegisterModal";
+import Logout  from "./auth/Logout";
+import LoginModal from './auth/LoginModal';
 
  
 
@@ -28,20 +30,20 @@ class AppNavBar extends Component {
   render() {
     return(
       <div>
-      <Navbar color="dark" dark expand="sm" className="mb-5">
+      <Navbar color="dark" dark expand="sm" className="mb-0">
         <Container>
           <NavbarBrand href='/' fixed='top'><h4><img src='/images/LogoMakr_4ZNYgN.png' width='35px' alt="logo"></img> BartCoin</h4></NavbarBrand>
           <NavbarToggler onClick={this.toogle}/>
           <Collapse isOpen={this.state.isOpen} navbar>
             <Nav className="ml-auto" navbar>
               <NavItem>
-                <NavLink href='https://github.com/benhadinehoussam'><Button>Sign In</Button></NavLink>
+                <LoginModal />
               </NavItem>
               <NavItem>
-                <NavLink href='https://github.com/benhadinehoussam'><Button color="primary">Register</Button></NavLink>
+                <RegisterModal />
               </NavItem>
               <NavItem>
-                <NavLink href='https://github.com/benhadinehoussam'><Button>About</Button></NavLink>
+                <Logout />
               </NavItem>
             </Nav>
           </Collapse>
